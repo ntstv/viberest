@@ -37,6 +37,8 @@ private URLRouter setupRouter()
 	
 	router.get("/", &index);
 	
+	router.registerRestInterface(new OpenWeatherImpl);
+	
 	return router;
 }
 

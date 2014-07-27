@@ -91,7 +91,7 @@ struct WWind
 	@Label("Wind direction, degrees (meteorological)")
 	double deg;
 	
-	@Label("Wind gust, mps")
+	@Label("Wind gust, mps") @optional()
 	double gust;
 }
 
@@ -118,13 +118,13 @@ struct WConditions
 
 struct WRain
 {
-	@Label("Precipitation volume for last 3 hours, mm")
+	@Label("Precipitation volume for last 3 hours, mm") @optional()
 	double _3h;
 	
 }
 
 struct WSnow
 {
-	@Label("Snow volume for last 3 hours, mm")
+	@Label("Snow volume for last 3 hours, mm") @optional()
 	double _3h;
 }
