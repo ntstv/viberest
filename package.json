@@ -1,0 +1,14 @@
+{
+    "name": "viberest",
+    "version": "0.0.1",
+    "description": "Rest interface example on vibe.d",
+    "homepage": "https://github.com/ntstv/viberest",
+    "copyright": "Copyright © 2014, Shamyan Roman",
+    "authors": ["ntstv"],
+    "libs-posix": ["dl"],
+    "versions":  ["VibeCustomMain"],
+    "dependencies": 
+    {
+	   "vibe-d": "~master"
+    }
+}
