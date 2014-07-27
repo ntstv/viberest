@@ -1,8 +1,13 @@
-import std.stdio;
+module app;
+
+import std.string;
 
 import vibe.d;
 
-import std.stdio;
+import restapi.restapi;
+import restapi.data;
+
+import util;
 
 void main(string[] args)
 {	
@@ -11,7 +16,6 @@ void main(string[] args)
 	lowerPrivileges();
 
 	runEventLoop();
-	
 }
 
 private HTTPServerSettings setupSettings()
@@ -31,10 +35,39 @@ private URLRouter setupRouter()
 	
 	router.get("*", serveStaticFiles("./public/"));
 	
+	router.get("/", &index);
+	
 	return router;
 }
 
 private void init()
 {
 	listenHTTP(setupSettings, setupRouter);
+}
+
+void index(HTTPServerRequest req, HTTPServerResponse res)
+{
+	auto client = new RestInterfaceClient!OpenWeather("http://api.openweathermap.org/data/2.5/");
+	
+	auto weather = client.getWeather("Moscow");
+	
+	string result = "<html>";
+	
+	foreach(each; respond(weather))
+	{
+		auto writer = res.bodyWriter();
+		
+		if (!each.label.empty)
+		{
+			result ~=format("<b>%s</b>:<br/>\"%s\" = %s<br/>", each.label, each.name, each.value);
+		}
+		else
+		{
+			result ~= format("<i>%s</i><br/>", each.name);
+		}
+	}
+	
+	result ~= "</html>";
+	
+	res.writeBody(result);
 }
